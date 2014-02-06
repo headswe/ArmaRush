@@ -1,0 +1,430 @@
+author="Head";
+OnLoadName = "Rush";
+OnLoadMission = "Rushing you!";
+joinUnassigned = 1;//false;
+class Header
+{
+	gameType = Seize;
+	minPlayers = 1;
+	maxPlayers = 64;
+};
+disabledAI = 1;
+respawn = 3;
+respawnDelay = 10;
+allowFunctionsLog = 1;
+class CfgFunctions
+{
+	class HE
+	{
+		class Obj
+		{
+			file = "functions";
+			class setLogicInfo {};
+			class reset{};
+			class start{};
+			class gameLoop{};
+			class pausePlayer{};
+			class setMarkerColor{};
+			class delMarkerLocal{};
+			class playerDead{};
+			class waitForJIP{};
+			class AddAction{};
+			class armCache{};
+			class disArmCache{};
+			class startCountDown{};
+			class spawnVehicle{};
+			class respawnVehicle{};
+			class uiLoop{};
+			class setDialogInfo{};
+			class addJIP{};
+            class Timer{};
+            class SetTimer{};
+            class drawNametags{};
+            class deleteSound{};
+            class ProcessParams {postinit=1;preinit=1;};
+		};
+	};
+};
+class Params
+{
+        class he_param_debugMode
+        {
+                title = "Debug Mode";
+                values[] = {0,1};
+                texts[] = {"Off","On"};
+                default = 0;
+                code = "f_var_debugMode = %1";
+        };
+        class he_param_ChainSel
+        {
+                title = "Chain";
+                values[] = {-1,0,1,2,3};
+                texts[] = {"Random","Captial","Airport","Old Captial","Factory"};
+                default = -1;
+                code = "f_var_ChainNum = %1";
+        };
+        class he_param_nameTags
+        {
+                title = "Nametags";
+                values[] = {0,1};
+                texts[] = {"No","Yes"};
+                default = 1;
+                code = "f_var_nameTags = %1";
+        };
+        class he_param_cacheTimer
+        {
+                title = "Cache timer";
+                values[] = {30,45,60,90,120};
+                texts[] = {"30sec","45sec","1minute","1minute 30 seconds","2 minute"};
+                default = 120;
+                code = "f_var_cacheTimer = %1";
+        };
+};
+class CfgDebriefing
+{
+    class End1
+    {
+        title = "NATO Victory!";
+        subtitle = "";
+        description = "NATO destroyed all the caches!";
+        // pictureBackground = "";
+        // picture = "";
+        // pictureColor[] = {0.0,0.3,0.6,1};
+    };
+
+    class End2
+    {
+        title = "CSAT Victory!";
+        subtitle = "";
+        description = "NATO ran out of tickets!";
+        // pictureBackground = "";
+        // picture = "";
+        // pictureColor[] = {0.0,0.3,0.6,1};
+    };
+
+    class End3
+    {
+        title = "CSAT Victory!";
+        subtitle = "";
+        description = "NATO ran out of time!";
+        // pictureBackground = "";
+        // picture = "";
+        // pictureColor[] = {0.0,0.3,0.6,1};
+    };
+};
+class CfgNotifications
+{
+	class Default
+	{
+		title = ""; // Tile displayed as text on black background. Filled by arguments.
+		iconPicture = ""; // Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = ""; // Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = ""; // Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {1,1,1,1}; // Icon and text color
+		duration = 5; // How many seconds will the notification be displayed
+		priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
+	};
+
+	// Examples
+	class BombArmed
+	{
+		title = "Cahce has been armed!";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+		description = "%1";
+		priority = 7;
+	};
+	class BombDisArmed
+	{
+		title = "Cahce has been disarmed!";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+		description = "%1";
+		priority = 7;
+	};
+	class CacheDestoryed
+	{
+		title = "Cache has been destroyed!";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+		description = "%1";
+		priority = 7;
+	};
+	class RoundComplete
+	{
+		title = "Round Completed";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+		description = "Moving to next round!";
+		color[] = {0.5,1,1,1};
+		priority = 0;
+	};
+};
+enableDebugConsole = 1;//dangerous in MP
+
+
+
+
+
+
+
+class RscButton;
+class CommonButton : RscButton
+{
+        access = 0;
+        type = 1;
+        text = "";
+        colorText[] = {1, 1, 1, 1};
+        colorDisabled[] = {0.4, 0.4, 0.4, 1};
+        colorBackgroundDisabled[] = {0.95, 0.95, 0.95, 1};
+        colorBackgroundActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 1};
+        colorFocused[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 1};
+        colorShadow[] = {0, 0, 0, 1};
+        colorBorder[] = {0, 0, 0, 1};
+        soundEnter[] = {"\A3\ui_f\data\sound\onover", 0.09, 1};
+        soundPush[] = {"\A3\ui_f\data\sound\new1", 0, 0};
+        soundClick[] = {"\A3\ui_f\data\sound\onclick", 0.07, 1};
+        soundEscape[] = {"\A3\ui_f\data\sound\onescape", 0.09, 1};
+        colorBackground[] = {0, 0, 0, 0.8};
+        colorBackground2[] = {1, 1, 1, 0.5};
+        style = 2;
+        x = 0;
+        y = 0;
+        w = 0.095589;
+        h = 0.039216;
+        shadow = 2;
+        font = "PuristaMedium";
+        sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+        offsetX = 0.003;
+        offsetY = 0.003;
+        offsetPressedX = 0.002;
+        offsetPressedY = 0.002;
+        borderSize = 0;
+};
+class RscListBox {
+        access = 0;
+        type = 5;
+        w = 0.4;
+        h = 0.4;
+        rowHeight = 0;
+        colorText[] = {1, 1, 1, 1};
+        colorScrollbar[] = {1, 0, 0, 0};
+        colorSelect[] = {0, 0, 0, 1};
+        colorSelect2[] = {0, 0, 0, 1};
+        colorSelectBackground[] = {0.95, 0.95, 0.95, 1};
+        colorSelectBackground2[] = {1, 1, 1, 0.5};
+        colorBackground[] = {0, 0, 0, 0.3};
+        soundSelect[] = {"", 0.1, 1};
+        arrowEmpty = "#(argb,8,8,3)color(1,1,1,1)";
+        arrowFull = "#(argb,8,8,3)color(1,1,1,1)";
+        class ScrollBar {
+            color[] = {1, 1, 1, 0.6};
+            colorActive[] = {1, 1, 1, 1};
+            colorDisabled[] = {1, 1, 1, 0.3};
+            shadow = 0;
+            thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
+            arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
+            arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
+            border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
+        };
+        style = 16;
+        font = "PuristaMedium";
+        sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 50) * 1)";
+        shadow = 0;
+        colorShadow[] = {0, 0, 0, 0.5};
+        color[] = {1, 1, 1, 1};
+        colorDisabled[] = {1, 1, 1, 0.25};
+        period = 1.2;
+        maxHistoryDelay = 1;
+        autoScrollSpeed = -1;
+        autoScrollDelay = 5;
+        autoScrollRewind = 0;
+    };
+  class RscFrame {
+        type = 0;
+        idc = -1;
+        style = 64;
+        shadow = 2;
+        colorBackground[] = {0, 0, 0, 0};
+        colorText[] = {1, 1, 1, 1};
+        font = "PuristaMedium";
+        sizeEx = 0.02;
+        text = "";
+    };
+	class RscShortcutButton;
+  class IGUIBack {
+        type = 0;
+        idc = 124;
+        style = 128;
+        text = "";
+        colorText[] = {0, 0, 0, 0};
+        font = "PuristaMedium";
+        sizeEx = 0;
+        shadow = 0;
+        x = 0.1;
+        y = 0.1;
+        w = 0.1;
+        h = 0.1;
+        colorbackground[] = {"(profilenamespace getvariable ['IGUI_BCG_RGB_R',0])", "(profilenamespace getvariable ['IGUI_BCG_RGB_G',1])", "(profilenamespace getvariable ['IGUI_BCG_RGB_B',1])", "(profilenamespace getvariable ['IGUI_BCG_RGB_A',0.8])"};
+    };
+class RscEdit {
+        access = 0;
+        type = 2;
+        x = 0;
+        y = 0;
+        h = 0.04;
+        w = 0.2;
+        colorBackground[] = {0, 0, 0, 1};
+        colorText[] = {0.95, 0.95, 0.95, 1};
+        colorSelection[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 1};
+        autocomplete = "";
+        text = "";
+        size = 0.2;
+        style = "0x00 + 0x40";
+        font = "PuristaMedium";
+        shadow = 2;
+        sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+        colorDisabled[] = {1, 1, 1, 0.25};
+        canModify = 1;
+    };
+    class RscText {
+        access = 0;
+        type = 0;
+        idc = -1;
+        colorBackground[] = {0, 0, 0, 0};
+        colorText[] = {1, 1, 1, 1};
+        text = "";
+        fixedWidth = 0;
+        x = 0;
+        y = 0;
+        h = 0.037;
+        w = 0.3;
+        style = 0;
+        shadow = 1;
+        colorShadow[] = {0, 0, 0, 0.5};
+        font = "PuristaMedium";
+        SizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+        linespacing = 1;
+    };
+
+
+
+
+class RscTitles {
+
+class he_statusDialog {
+	idd = -1;
+	movingEnable = 0;
+	enableSimulation = 1;
+	enableDisplay = 1;
+	duration = 2147483647;
+	onLoad = "_this call he_fnc_setDialogInfo";
+	fadein = 0;
+	fadeout = 0;
+	class controlsBackground {
+		class IGUIBack_2200: IGUIBack
+		{
+			idc = 2200;
+			x = 0.386417 * safezoneW + safezoneX;
+			y = -8.00085e-005 * safezoneH + safezoneY;
+			w = 0.239896 * safezoneW;
+			h = 0.0564 * safezoneH;
+		};
+        class statusFrame: RscFrame
+        {
+            idc = 2230;
+            x = 0.386417 * safezoneW + safezoneX;
+            y = -8.00085e-005 * safezoneH + safezoneY;
+            w = 0.239896 * safezoneW;
+            h = 0.0564 * safezoneH;
+        };
+	};
+	class controls {
+		class CfgSideText: RscText
+		{
+			idc = 1000;
+			text = "NATO"; //--- ToDo: Localize;
+			x = 0.395396 * safezoneW + safezoneX;
+			y = 0.00179997 * safezoneH + safezoneY;
+			w = 0.0391667 * safezoneW;
+			h = 0.0188 * safezoneH;
+		};
+		class RscText_1001: RscText
+		{
+			idc = 1001;
+			text = "Tickets: 300"; //--- ToDo: Localize;
+			x = 0.395396 * safezoneW + safezoneX;
+			y = 0.02248 * safezoneH + safezoneY;
+			w = 0.05875 * safezoneW;
+			h = 0.0188 * safezoneH;
+		};
+		class CfgTimerText: RscText
+		{
+			idc = 1002;
+			text = "Time remaining:"; //--- ToDo: Localize;
+			x = 0.480417 * safezoneW + safezoneX;
+			y = 0.0206 * safezoneH + safezoneY;
+			w = 0.0783333 * safezoneW;
+			h = 0.0188 * safezoneH;
+		};
+		class CfgTimerT: RscText
+		{
+			idc = 1003;
+			text = "15:00"; //--- ToDo: Localize;
+			x = 0.55875 * safezoneW + safezoneX;
+			y = 0.0112 * safezoneH + safezoneY;
+			w = 0.0538542 * safezoneW;
+			h = 0.0282 * safezoneH;
+			sizeEx = 0.08;
+		};
+	};
+};
+
+};
+
+
+class he_RespawnDialog {
+        idd = -1;
+        movingEnable = 0;
+        onLoad = "ctrlEnable [1600, false];ctrlEnable [1601, false]";
+    class controlsBackground {
+        class IGUIBack_2200: IGUIBack
+        {
+            idc = 2200;
+            x = 0 * safezoneW + safezoneX;
+            y = 0 * safezoneH + safezoneY;
+            w = 1 * safezoneW;
+            h = 1 * safezoneH;
+            colorBackground[] = { 0, 0, 0, 1 };
+        };
+        class he_backdrop: RscFrame
+        {
+            idc = 1800;
+            x = -0.02875 * safezoneW + safezoneX;
+            y = -0.0546 * safezoneH + safezoneY;
+            w = 1.02813 * safezoneW;
+            h = 1.0528 * safezoneH;
+        };
+
+    };
+    class controls {
+
+        class he_buttonBase_respawn: CommonButton
+        {
+            idc = 1600;
+            text = "Respawn Base"; //--- ToDo: Localize;
+            x = 0.774167 * safezoneW + safezoneX;
+            y = 0.594 * safezoneH + safezoneY;
+            w = 0.0832292 * safezoneW;
+            h = 0.0376 * safezoneH;
+            onButtonClick = "missionNamespace setvariable ['he_respawnLoc','BASE'];";
+        };
+        class he_respawnSL: CommonButton
+        {
+            idc = 1601;
+            text = "Respawn at SL"; //--- ToDo: Localize;
+            x = 0.774167 * safezoneW + safezoneX;
+            y = 0.641 * safezoneH + safezoneY;
+            w = 0.0832292 * safezoneW;
+            h = 0.0376 * safezoneH;
+            onButtonClick = "missionNamespace setvariable ['he_respawnLoc','MOBILE'];";
+        };
+    };
+};
